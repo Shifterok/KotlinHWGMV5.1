@@ -1,21 +1,18 @@
 import homework5.data.Post
+import homework5.service.WallService
 
 fun main() {
-
     val origin = Post(
-        101, 110, 250, "Михаил", 2021, "Инит", 101, 105,
+        1, 1005, 1005, "Михаил", 2021, "Инициализация", 2, 105,
         1, 250, 15, 12, 14, 15, "Interesting", 20,
         canPin = true, canDelete = true, canEdit = true, isPinned = true,
         markedAsAds = true, isFavorite = true, 50, 10
     )
+    println(origin.text)
 
     println("Напишите ваш первый комментарий на стене")
-    val whatYourFirstPost = readLine()
+    val myFirstPost = readLine()
+    origin.text = myFirstPost.toString()
 
-    val postsAtWall: Array<String> = arrayOf(arrayOf(0,1,2,3,4).toString())
-    postsAtWall[0] = whatYourFirstPost.toString()
-    println(postsAtWall[0])
-
-    val service = WallService()
-    service.add(origin)
+    println(origin.text)
 }

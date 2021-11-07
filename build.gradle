@@ -1,6 +1,7 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
     id 'java'
+    id 'jacoco'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
 }
 
 group 'ru.netology'
@@ -8,15 +9,16 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-    mavenCentral()
 }
-
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'junit:junit:4.13.2'
 }
-
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
 test {
-    useJUnitPlatform()
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 }

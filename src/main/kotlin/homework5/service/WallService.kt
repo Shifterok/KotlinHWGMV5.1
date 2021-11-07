@@ -1,26 +1,29 @@
+package homework5.service
+
 import homework5.data.Post
 
 class WallService {
-    private var posts = emptyArray<Post>()
+
+    var posts = emptyArray<Post>()
+    val update = emptyArray<Boolean>()
 
     fun add(post: Post): Post {
-        posts += post
-        return posts.last()
+        val anotherPost: Post = when (posts.isEmpty()) {
+            true -> post.copy(id = 1)
+            false -> post.copy(id = posts.last().id + 1)
+        }
+        posts = posts.plus(anotherPost)
+        return anotherPost
     }
 
     fun update(post: Post): Boolean {
-        TODO("Что то пошло не так!")
-    }
-
-    fun removeByID(post: Long): Boolean {
-        TODO("Что то пошло не так!")
-    }
-
-    fun likeById(id: Long) {
-        for ((index, post) in posts.withIndex()) {
-            if (post.id= id ) {
-                posts[index] = post.copy(likes = post.likes + 1)
+        for ((index, anotherPost) in posts.withIndex()) {
+            if (anotherPost.id == post.id) {
+                val newPost = post.copy(ownerId = anotherPost.ownerId, date = anotherPost.date)
+                posts[index] = newPost
+                return true
             }
         }
+        return false
     }
 }
